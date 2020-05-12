@@ -5,8 +5,8 @@
 2. I have been doing some research to understand the project and divide it into tasks to be assigned among our group members.
 
 ### What I plan to do this week
-1. Implement user sign up functionality (probably just a nickname - no account attached).
-2. User to user messaging functionality.
+1. Design data structures to store user information.
+2. Implement database to store messages.
 
 ### Links
 
