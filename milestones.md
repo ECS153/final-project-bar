@@ -13,5 +13,12 @@
 ## Tianyang Zhan
 
 ## Brandon Jones Gunaman
+### What I did last week
+1. Discussed ideas about feasible projects to make.  
+2. Learned a bit about react and messaging apps  
+
+## What I plan to do this week
+1. start UI on Login page and Create Accounts
+2. Research and start login functionality and creations of user Accounts  
 
 ## Vsevolod Moskaev
