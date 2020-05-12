@@ -11,6 +11,13 @@
 ### Links
 
 ## Tianyang Zhan
+### What I did last week
+1. Discussed ideas about feasible projects to make.
+2. Designed the UI for chat window page.
+
+### What I plan to do this week
+1. Implement chat window page frontend in React.
+2. Hook up frontend with the database backend developed by Vincent.
 
 ## Brandon Jones Gunaman
 ### What I did last week
