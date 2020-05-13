@@ -29,3 +29,9 @@
 2. Research and start login functionality and creations of user Accounts  
 
 ## Vsevolod Moskaev
+### What I did last week
+1. Discussed ideas about feasible projects to make.
+
+### What I plan to do this week
+1. Research email/user verification methods
+2. Implement email verification using Firebase's API
