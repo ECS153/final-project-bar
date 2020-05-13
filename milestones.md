@@ -3,6 +3,8 @@
 ### What I did last week
 1. Discussed ideas about feasible projects to make.
 2. I have been doing some research to understand the project and divide it into tasks to be assigned among our group members.
+3. Video: https://youtu.be/hVwcty7Oblw
+4. Design Document: https://docs.google.com/document/d/1g0APKSFjyR55MoDiYTKlyfNkHqv_cSr707IoxPRuAQA/edit
 
 ### What I plan to do this week
 1. Design data structures to store user information.
