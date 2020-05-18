@@ -27,7 +27,23 @@ function Register(props) {
     async function onRegister() {
         try {
             await firebase.register(username, email, password);
-            props.history.replace('/chat');
+            
+            //props.history.replace('/chat');
+        } catch(error) {
+            alert(error.message);
+        }
+
+        try {
+            await verify();
+        } catch(error) {
+            alert(error.message);
+        }
+    }
+
+    async function verify() {
+        try {
+            await firebase.verifyEmail();
+            props.history.replace('/');
         } catch(error) {
             alert(error.message);
         }

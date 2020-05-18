@@ -46,6 +46,21 @@ class Firebase {
         return this.auth.currentUser && this.auth.currentUser.displayName;
     }
 
+    verifyEmail() {
+        this.auth.currentUser.sendEmailVerification()
+            .then(() => {
+                //email sent
+            })
+            .catch((error) => {
+                alert(error.message);
+            })
+    }
+
+    getVerified() {
+        return this.auth.currentUser.emailVerified;
+    }
+
+
 }
 
   export default new Firebase();

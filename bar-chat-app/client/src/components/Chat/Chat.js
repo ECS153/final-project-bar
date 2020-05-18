@@ -26,6 +26,11 @@ const Chat = ( /*{location}*/ props ) => {
         alert('Please Login First');
         props.history.replace('/');
     }
+
+    if(!firebase.getVerified()) {
+        alert('Please verify your email first');
+        props.history.replace('/');
+    }
     useEffect( () => {
         //const {name} = queryString.parse(location.search);
        
