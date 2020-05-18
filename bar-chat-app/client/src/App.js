@@ -6,36 +6,6 @@ import Chat from './components/Chat/Chat';
 import firebase from './config/firebase';
 
 
-// class App extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             name: '',
-//             user: {}
-//         }
-//     }
-//     componentDidMount() {
-//         fire.auth().onAuthStateChanged((user) => {
-//             if (user) {
-//                 this.setState({user});
-//             } else {
-//                 this.setState({user: null});
-//             }
-//         });
-//     }
-//     render() {
-//         return (
-//             <div className="App">
-//                 {this.state.user ? (<Chat />) : ( <Login />)}
-//             </div>
-//         // <Router>
-//         //     <Route path="/" component={Login} /> ): (<Route path="/" component={Chat} />)}
-            
-//         //     <Route path="/chat" component={Chat} />
-//         // </Router>
-//         );
-//     }   
-// }
 const App = () => {
     const [firebaseInitialized, setFirebaseInitialized] = useState(false);
 

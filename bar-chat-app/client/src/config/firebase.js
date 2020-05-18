@@ -13,41 +13,39 @@ const firebaseConfig = {
     appId: "1:77488178908:web:32047eb6c1c91b039ed619",
     measurementId: "G-6XMS32HB29"
   };
-  // Initialize Firebase
-  //const fire = firebase.initializeApp(firebaseConfig);
-  //firebase.analytics();
 
-  class Firebase {
-      constructor() {
-          app.initializeApp(firebaseConfig);
-          this.auth = app.auth();
-          this.db = app.firestore();
-      }
 
-      login(email,password) {
-          return this.auth.signInWithEmailAndPassword(email, password);
-      }
+class Firebase {
+    constructor() {
+        app.initializeApp(firebaseConfig);
+        this.auth = app.auth();
+        this.db = app.firestore();
+    }
 
-      logout() {
-          return this.auth.signOut();
-      }
+    login(email,password) {
+        return this.auth.signInWithEmailAndPassword(email, password);
+    }
 
-      async register(name, email, password) {
-          await this.auth.createUserWithEmailAndPassword(email, password)
-          return this.auth.currentUser.updateProfile({
-              displayName: name
-          })
-      }
+    logout() {
+        return this.auth.signOut();
+    }
 
-      isInitialized() {
-          return new Promise(resolve => {
-              this.auth.onAuthStateChanged(resolve);
-          })
-      }
-      getCurrentUsername() {
-          return this.auth.currentUser && this.auth.currentUser.displayName;
-      }
+    async register(name, email, password) {
+        await this.auth.createUserWithEmailAndPassword(email, password)
+        return this.auth.currentUser.updateProfile({
+            displayName: name
+        })
+    }
 
-  }
+    isInitialized() {
+        return new Promise(resolve => {
+            this.auth.onAuthStateChanged(resolve);
+        })
+    }
+    getCurrentUsername() {
+        return this.auth.currentUser && this.auth.currentUser.displayName;
+    }
+
+}
 
   export default new Firebase();
