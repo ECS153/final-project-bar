@@ -1,3 +1,36 @@
+# Milestone 2
+## Sheng Yee Siow
+### What I did last week
+1. Researched about Lotion.js (Javascript interface to build blockchain applications)
+2. Implemented private/public validator key generation (blockchain - proof of stake)
+3. Implemented Lotion interface for our chat app
+
+### Difficulties faced
+1. Unable to host all validator nodes locally, currently looking into hosting on VM
+
+### What I plan to do this week
+1. Host validator nodes on VMs or locally.
+2. Connect messaging functionality with front end.
+
+### Links
+1. https://github.com/ECS153/final-project-bar/pull/7
+
+## Tianyang Zhan
+### What I did last week
+
+### What I plan to do this week
+
+## Brandon Jones Gunaman
+### What I did last week
+
+## What I plan to do this week
+
+## Vsevolod Moskaev
+### What I did last week
+
+### What I plan to do this week
+
+
 # Milestone 1
 ## Sheng Yee Siow
 ### What I did last week
