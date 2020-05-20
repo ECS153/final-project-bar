@@ -22,8 +22,16 @@
 
 ## Brandon Jones Gunaman
 ### What I did last week
+1. Finished the login and register user front end   
+2. Finished login and register user functionality with email verification using Firebase  
 
-## What I plan to do this week
+###Difficulties faced
+1. Firebase tutorial is mainly built for node not react, so had to find a way to use  it on react  
+
+## What I plan to do this week  
+1. Blockchain research  
+2. Host validator nodes on VMs or locally.
+3. Connect messaging functionality with front end. 
 
 ## Vsevolod Moskaev
 ### What I did last week
