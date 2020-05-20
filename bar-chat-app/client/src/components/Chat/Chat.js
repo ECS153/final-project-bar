@@ -19,7 +19,11 @@ let socket;
 const Chat = ( /*{location}*/ props ) => {
     
     const [name, setName] = useState('');
+    const [room, setRoom] = useState('');
+    const [newuser, setNewUser] = useState('');
+    const [users, setUsers] = useState([]);
     const [message, setMessage] = useState('');
+    const [messages, setMessages] = useState([]);
     const ENDPOINT = 'localhost:5000';
 
     if(!firebase.getCurrentUsername()) {
@@ -33,27 +37,83 @@ const Chat = ( /*{location}*/ props ) => {
     }
     useEffect( () => {
         //const {name} = queryString.parse(location.search);
-       
         
         const name = firebase.getCurrentUsername();
         console.log(name);
         socket = io(ENDPOINT);
 
         setName(name);
+        setRoom(room);
+        //setUsers([{"name":"users1"},{"name":"user2"}]); //DEBUG
 
-        socket.emit('join', {name} );
+        socket.emit('join', {name, room}, (error) => {
+            if(error) {
+              alert(error);
+            }
+        });
 
     }, [ENDPOINT, /*location.search*/]);
     
+    useEffect(() => {
+        socket.on('message', message => {
+          setMessages(messages => [ ...messages, message ]);
+        });
+        /*socket.on("roomData", ({ users }) => {
+          setUsers(users);
+        });*/
+    }, []);
+
+    const sendMessage = (event) => {
+        event.preventDefault();
+        
+        if(message) {
+          socket.emit('sendMessage', message, () => setMessage(''));
+        }
+      }
+
+    const updateUsers = (event) => {
+        event.preventDefault();
+        
+        if(newuser) {
+          setUsers(users => [ ...users, {"name":newuser} ]);
+        }
+    }
+
+    const removeUser = (usr) => {
+      
+      if(usr) {
+        //setRoom('');
+        setUsers(users => users.filter(item => item.name !== usr));
+      }
+  }
+    
+    let isEntered = true;
+    if(room === ''){
+      isEntered = false;
+    }
+
     return (
-        <div className="outerContainer">
-        <div className="container">
-            <InfoBar  />
-            <Messages />
-            <Input  />
-        </div>
-        <TextContainer />
-      </div>
+        isEntered ? 
+        (
+            <div className="outerContainer">
+            <div className="container">
+                <InfoBar  user2={room} setRoom={setRoom}/>
+                <Messages messages={messages} name={name}/>
+                <Input  message={message} setMessage={setMessage} sendMessage={sendMessage}/>
+            </div>
+              <TextContainer name={name} isEntered={isEntered} users={users} setRoom = {setRoom} 
+                newuser={newuser} setNewUser={setNewUser} props={props}
+                updateUsers={updateUsers} removeUser={removeUser}/>
+            </div>
+        ) 
+        :
+        (
+          <div className="outerContainer">
+              <TextContainer name={name} isEntered={isEntered} users={users} setRoom = {setRoom} 
+                newuser={newuser} setNewUser={setNewUser} props={props}
+                updateUsers={updateUsers} removeUser={removeUser}/>
+          </div>
+        )
     );
 }
 
