@@ -1,4 +1,6 @@
 # Milestone 2
+Video: https://youtu.be/77c0YAEJjYU
+
 ## Sheng Yee Siow
 ### What I did last week
 1. Researched about Lotion.js (Javascript interface to build blockchain applications)
