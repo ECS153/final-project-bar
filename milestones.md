@@ -45,9 +45,13 @@
 
 ## Vsevolod Moskaev
 ### What I did last week
+1. Nothing
+
+### Difficulties faced
+1. Javascript
 
 ### What I plan to do this week
-
+1. Assist with connecting messaging functionality with front end.
 
 # Milestone 1
 ## Sheng Yee Siow
