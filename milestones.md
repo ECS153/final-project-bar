@@ -17,15 +17,25 @@
 
 ## Tianyang Zhan
 ### What I did last week
+1. Implemented add/remove friend feature
+2. Implemented frontend logic for displaying messages
+3. Finished Chat Window View UI design
+
+### Difficulties faced
+1. Design and debug frontend logic without backend support
+2. Create a responsive app that looks good on different devices
 
 ### What I plan to do this week
+1. Blockchain research
+2. Tune CSS style on frontend pages
+3. Connect messaging functionality with backend.
 
 ## Brandon Jones Gunaman
 ### What I did last week
 1. Finished the login and register user front end   
 2. Finished login and register user functionality with email verification using Firebase  
 
-###Difficulties faced
+### Difficulties faced
 1. Firebase tutorial is mainly built for node not react, so had to find a way to use  it on react  
 
 ## What I plan to do this week  
