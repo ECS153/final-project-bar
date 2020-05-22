@@ -1,7 +1,7 @@
 {
     "server": {
       "baseDir": [
-        "../client/src",
+        "./src",
         "./build/contracts"
       ],
       "routes": {
