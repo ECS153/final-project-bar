@@ -102,6 +102,13 @@ App = {
         App.setLoading(false)
     },
 
+    createMessage: async () => {
+        App.setLoading(true)
+        const content = $('#newMsg').val()
+        await App.msgList.createMessage(content)
+        window.location.reload()
+    },
+
     setLoading: (boolean) => {
         App.loading = boolean
         const loader = $('#loader')

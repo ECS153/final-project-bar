@@ -20,4 +20,13 @@ contract('Bar', (accounts) => { //accounts in the blockchain (ganache)
         assert.equal(msg.content, 'Hello World')
         assert.equal(msgCount.toNumber(), 1)
     })
+
+    it('creates messages', async () => {
+        const result = await this.bar.createMessage('A new message')
+        const msgCount = await this.bar.msgCount()
+        assert.equal(msgCount, 2)
+        const event = result.logs[0].args // emitted event from Bar.sol.createMessage
+        assert.equal(event.id.toNumber(), 2)
+        assert.equal(event.content, 'A new message')
+    })
 })
