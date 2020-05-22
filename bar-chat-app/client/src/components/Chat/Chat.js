@@ -52,6 +52,11 @@ const Chat = ( /*{location}*/ props ) => {
             }
         });
 
+        return () => {
+          socket.emit('disconnect');
+          socket.off();
+        }
+
     }, [ENDPOINT, /*location.search*/]);
     
     useEffect(() => {
@@ -61,7 +66,8 @@ const Chat = ( /*{location}*/ props ) => {
         /*socket.on("roomData", ({ users }) => {
           setUsers(users);
         });*/
-    }, []);
+
+    }, [messages]);
 
     const sendMessage = (event) => {
         event.preventDefault();
