@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/ECS153/final-project-bar#readme",
   "dependencies": {
-    "lotion": "^0.4.26"
+    "chai": "^4.2.0",
+    "lotion": "^0.4.26",
+    "mocha": "^7.1.2"
   }
 }
