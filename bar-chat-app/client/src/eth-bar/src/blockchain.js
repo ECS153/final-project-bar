@@ -29,36 +29,66 @@ class Blockchain {
     // https://medium.com/metamask/https-medium-com-metamask-breaking-change-injecting-web3-7722797916a8
     // connect blockchain to browser
     async loadWeb3() {
+
         if (typeof window.web3 !== 'undefined') {
             this.web3Provider = window.web3.currentProvider
             window.web3 = new Web3(window.web3.currentProvider)
         } else {
             window.alert("Please connect to Metamask.")
         }
-        // Modern dapp browsers...
+        
         if (window.ethereum) {
-            window.web3 = new Web3(window.ethereum)
-            try {
-                // Request account access if needed
-                await window.ethereum.enable()
-                // Acccounts now exposed
-                window.web3.eth.sendTransaction({/* ... */})
-            } catch (error) {
-                // User denied account access...
-                console.log("user denied account access....");
-            }
+            window.web3 = new Web3(window.ethereum);
+            try { 
+                window.ethereum.enable().then(function() {
+                // User has allowed account access to DApp...
+                console.log("account okay")
+            });
+            } catch(e) {
+                // User has denied account access to DApp...
+                console.log("account denied")
+            }
         }
-        // Legacy dapp browsers...
+        // Legacy DApp Browsers
         else if (window.web3) {
-            this.web3Provider = window.web3.currentProvider
-            window.web3 = new Web3(window.web3.currentProvider)
-            // Acccounts always exposed
-            window.web3.eth.sendTransaction({/* ... */})
+            window.web3 = new Web3(window.web3.currentProvider);
         }
-        // Non-dapp browsers...
+        // Non-DApp Browsers
         else {
-            console.log('Non-Ethereum browser detected. You should consider trying MetaMask!')
+            alert('You have to install MetaMask !');
         }
+
+        
+        // if (typeof window.web3 !== 'undefined') {
+        //     this.web3Provider = window.web3.currentProvider
+        //     window.web3 = new Web3(window.web3.currentProvider)
+        // } else {
+        //     window.alert("Please connect to Metamask.")
+        // }
+        // // Modern dapp browsers...
+        // if (window.ethereum) {
+        //     window.web3 = new Web3(window.ethereum)
+        //     try {
+        //         // Request account access if needed
+        //         await window.ethereum.enable()
+        //         // Acccounts now exposed
+        //         window.web3.eth.sendTransaction({/* ... */})
+        //     } catch (error) {
+        //         // User denied account access...
+        //         console.log("user denied account access....");
+        //     }
+        // }
+        // // Legacy dapp browsers...
+        // else if (window.web3) {
+        //     this.web3Provider = window.web3.currentProvider
+        //     window.web3 = new Web3(window.web3.currentProvider)
+        //     // Acccounts always exposed
+        //     window.web3.eth.sendTransaction({/* ... */})
+        // }
+        // // Non-dapp browsers...
+        // else {
+        //     console.log('Non-Ethereum browser detected. You should consider trying MetaMask!')
+        // }
     }
 
     async loadAccount() {
