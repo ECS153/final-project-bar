@@ -36,7 +36,7 @@ class Blockchain {
         } else {
             window.alert("Please connect to Metamask.")
         }
-        
+
         if (window.ethereum) {
             window.web3 = new Web3(window.ethereum);
             try { 
@@ -57,38 +57,6 @@ class Blockchain {
         else {
             alert('You have to install MetaMask !');
         }
-
-        
-        // if (typeof window.web3 !== 'undefined') {
-        //     this.web3Provider = window.web3.currentProvider
-        //     window.web3 = new Web3(window.web3.currentProvider)
-        // } else {
-        //     window.alert("Please connect to Metamask.")
-        // }
-        // // Modern dapp browsers...
-        // if (window.ethereum) {
-        //     window.web3 = new Web3(window.ethereum)
-        //     try {
-        //         // Request account access if needed
-        //         await window.ethereum.enable()
-        //         // Acccounts now exposed
-        //         window.web3.eth.sendTransaction({/* ... */})
-        //     } catch (error) {
-        //         // User denied account access...
-        //         console.log("user denied account access....");
-        //     }
-        // }
-        // // Legacy dapp browsers...
-        // else if (window.web3) {
-        //     this.web3Provider = window.web3.currentProvider
-        //     window.web3 = new Web3(window.web3.currentProvider)
-        //     // Acccounts always exposed
-        //     window.web3.eth.sendTransaction({/* ... */})
-        // }
-        // // Non-dapp browsers...
-        // else {
-        //     console.log('Non-Ethereum browser detected. You should consider trying MetaMask!')
-        // }
     }
 
     async loadAccount() {
@@ -129,6 +97,7 @@ class Blockchain {
     async createMessage(content) {
         //this.setLoading(true)
         console.log(content);
+        console.log(this.msgList)
         await this.msgList.createMessage(content)
         this.renderMsgs();
         window.location.reload()

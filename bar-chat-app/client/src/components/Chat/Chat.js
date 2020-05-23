@@ -14,7 +14,6 @@ import { checkPropTypes } from 'prop-types';
 
 let socket;
 
-Blockchain.load();
 const Chat = ( /*{location}*/ props ) => {
     
     const [name, setName] = useState('');
@@ -37,6 +36,7 @@ const Chat = ( /*{location}*/ props ) => {
     useEffect( () => {
         //const {name} = queryString.parse(location.search);
         
+        Blockchain.load();
         const name = firebase.getCurrentUsername();
         console.log(name);
         socket = io(ENDPOINT);
