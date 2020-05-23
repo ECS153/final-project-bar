@@ -3,7 +3,7 @@ import queryString from 'query-string';
 import io from 'socket.io-client';
 import { Link, withRouter } from 'react-router-dom';
 
-
+import Blockchain from '../../eth-bar/src/blockchain';
 import TextContainer from '../TextContainer/TextContainer';
 import Messages from '../Messages/Messages';
 import InfoBar from '../InfoBar/InfoBar';
@@ -14,8 +14,7 @@ import { checkPropTypes } from 'prop-types';
 
 let socket;
 
-
-
+Blockchain.load();
 const Chat = ( /*{location}*/ props ) => {
     
     const [name, setName] = useState('');
@@ -43,7 +42,7 @@ const Chat = ( /*{location}*/ props ) => {
         socket = io(ENDPOINT);
 
         setName(name);
-        setRoom(room);
+        setRoom(/*room*/ '100');
         //setUsers([{"name":"users1"},{"name":"user2"}]); //DEBUG
 
         socket.emit('join', {name, room}, (error) => {
@@ -60,20 +59,28 @@ const Chat = ( /*{location}*/ props ) => {
     }, [ENDPOINT, /*location.search*/]);
     
     useEffect(() => {
+        console.log("here")
         socket.on('message', message => {
+          //console.log("incoming message")
+          //console.log(message);
           setMessages(messages => [ ...messages, message ]);
+          Blockchain.createMessage(message);
+          Blockchain.renderMsgs();
         });
+        //console.log(messages);
         /*socket.on("roomData", ({ users }) => {
           setUsers(users);
         });*/
+        //console.log('outta');
 
-    }, [messages]);
+    },[]);
 
     const sendMessage = (event) => {
         event.preventDefault();
-        
+        //console.log(message);
         if(message) {
           socket.emit('sendMessage', message, () => setMessage(''));
+          //console.log(messages);
         }
       }
 
@@ -94,9 +101,9 @@ const Chat = ( /*{location}*/ props ) => {
   }
     
     let isEntered = true;
-    if(room === ''){
-      isEntered = false;
-    }
+    // if(room === ''){
+    //   isEntered = false;
+    // }
 
     return (
         isEntered ? 
