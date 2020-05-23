@@ -22,8 +22,8 @@ io.on('connection', (socket) => {
         console.log(room);
         room = '100';
         console.log('fun');
-        socket.emit('message', {user: 'admin', text: `${user.name}, welcome to this chat room!`});
-        socket.broadcast.to().emit('message', { user: 'admin', text: `${user.name}, has joined`});
+        //socket.emit('message', {user: 'admin', text: `${user.name}, welcome to this chat room!`});
+        //socket.broadcast.to().emit('message', { user: 'admin', text: `${user.name}, has joined`});
         socket.join(room);
         callback();
     });

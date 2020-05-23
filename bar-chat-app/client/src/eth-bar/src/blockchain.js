@@ -68,14 +68,15 @@ class Blockchain {
 
     async loadContract() {
         const msgList = BarData;
-        console.log("Msg LIST")
-        console.log(msgList);
+        //console.log("Msg LIST")
+        //console.log(msgList);
         // truffle contract - JS representation of a smart contract
         this.contracts.Bar = TruffleContract(msgList)
         this.contracts.Bar.setProvider(this.web3Provider)
 
         // get smart contract values from blockchain
-        this.msgList = await this.contracts.Bar.deployed()
+        this.msgList = await this.contracts.Bar.deployed().catch((error) => console.log(error))
+        console.log(this.msgList);
         console.log("done");
     }
 

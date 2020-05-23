@@ -4,7 +4,7 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Chat from './components/Chat/Chat';
 import firebase from './config/firebase';
-import Bar_app from './eth-bar/src/app';
+
 
 
 const App = () => {

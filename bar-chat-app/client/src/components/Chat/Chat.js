@@ -14,7 +14,7 @@ import { checkPropTypes } from 'prop-types';
 
 let socket;
 
-Blockchain.load();
+
 const Chat = ( /*{location}*/ props ) => {
     
     const [name, setName] = useState('');
@@ -61,10 +61,11 @@ const Chat = ( /*{location}*/ props ) => {
     useEffect(() => {
         console.log("here")
         socket.on('message', message => {
+          Blockchain.load();
           //console.log("incoming message")
           //console.log(message);
           setMessages(messages => [ ...messages, message ]);
-          Blockchain.createMessage(message);
+          Blockchain.createMessage(message.text);
           Blockchain.renderMsgs();
         });
         //console.log(messages);
