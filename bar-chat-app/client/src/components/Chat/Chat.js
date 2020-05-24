@@ -65,7 +65,7 @@ const Chat = ( /*{location}*/ props ) => {
           //console.log("incoming message")
           //console.log(message);
           setMessages(messages => [ ...messages, message ]);
-          Blockchain.createMessage(message.text);
+    
           //Blockchain.renderMsgs();
         });
         //console.log(messages);
@@ -80,6 +80,7 @@ const Chat = ( /*{location}*/ props ) => {
         event.preventDefault();
         //console.log(message);
         if(message) {
+          Blockchain.createMessage(message);
           socket.emit('sendMessage', message, () => setMessage(''));
           //console.log(messages);
         }
