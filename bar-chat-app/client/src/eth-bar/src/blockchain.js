@@ -30,9 +30,9 @@ class Blockchain {
     // connect blockchain to browser
     async loadWeb3() {
 
-        if (typeof window.web3 !== 'undefined') {
-            this.web3Provider = window.web3.currentProvider
-            window.web3 = new Web3(window.web3.currentProvider)
+        if (typeof this.web3 !== 'undefined') {
+            this.web3Provider = this.web3.currentProvider
+            this.web3 = new Web3(window.web3.currentProvider)
         } else {
             window.alert("Please connect to Metamask.")
         }
@@ -42,8 +42,9 @@ class Blockchain {
             try { 
                 window.ethereum.enable().then(function() {
                 // User has allowed account access to DApp...
-                console.log("account okay")
-            });
+                    console.log("account okay")
+                    this.web3.eth.sendTransaction({/*....*/});
+                });
             } catch(e) {
                 // User has denied account access to DApp...
                 console.log("account denied")
@@ -51,7 +52,8 @@ class Blockchain {
         }
         // Legacy DApp Browsers
         else if (window.web3) {
-            window.web3 = new Web3(window.web3.currentProvider);
+            this.web3Provider = this.web3.currentProvider;
+            window.web3 = new Web3(this.web3.currentProvider);
         }
         // Non-DApp Browsers
         else {
@@ -60,7 +62,7 @@ class Blockchain {
     }
 
     async loadAccount() {
-        this.account = window.web3.eth.accounts[0]
+        this.account = this.web3.eth.accounts[0]
         console.log(this.account)
     }
 

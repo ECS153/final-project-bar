@@ -14,6 +14,7 @@ import firebase from '../../config/firebase';
 import './Chat.css';
 import { checkPropTypes } from 'prop-types';
 import BarData from '../../eth-bar/build/contracts/Bar.json'; 
+import getWeb3 from '../getWeb3/getWeb3';
 
 let socket;
 
@@ -28,7 +29,6 @@ const Chat = ( /*{location}*/ props ) => {
     const [mmAccount, setmmAccount] = useState('0x0');
     const ENDPOINT = 'localhost:5000';
     let web3Provider = null;
-    let web3 = null
     let msgList = null;
 
     if(!firebase.getCurrentUsername()) {
@@ -41,21 +41,17 @@ const Chat = ( /*{location}*/ props ) => {
         props.history.replace('/');
     }
 
-    if (web3 !== null) {
-      web3Provider = web3.currentProvider;
-      console.log('web3Provider if');
-      console.log(web3Provider);
-    } else {
-      web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');  
-      console.log("web3Provider else");
-      console.log(web3Provider) 
-    }
+    // if (web3 !== null) {
+    //   web3Provider = web3.currentProvider;
+    //   console.log('web3Provider if');
+    //   console.log(web3Provider);
+    // } else {
+    //   web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');  
+    //   console.log("web3Provider else");
+    //   console.log(web3Provider) 
+    // }
 
-    web3 = new Web3(web3Provider);
-    msgList = TruffleContract(BarData);
-    msgList.setProvider(web3Provider);
-    console.log(msgList);
-    let msgListInstance = null;
+    
 
     useEffect( () => {
         //const {name} = queryString.parse(location.search);
@@ -84,7 +80,6 @@ const Chat = ( /*{location}*/ props ) => {
     useEffect(() => {
         console.log("here")
         socket.on('message', message => {
-          
           //console.log("incoming message")
           //console.log(message);
           setMessages(messages => [ ...messages, message ]);
@@ -102,19 +97,21 @@ const Chat = ( /*{location}*/ props ) => {
     const sendMessage = (event) => {
         event.preventDefault();
         //console.log(message);
+        Blockchain.load();
         if(message) {
-          web3.eth.getCoinbase((err,account) => {
-            setmmAccount(account);
-            console.log(account)
-            console.log(msgList);
-            msgList.deployed().then((instance) => {
-              msgListInstance = instance;
-              console.log(instance);
-              console.log("before create message");
-              msgListInstance.createMessage(message);
-              console.log("after create message");
-            })
-          })
+          // web3.eth.getCoinbase((err,account) => {
+          //   setmmAccount(account);
+          //   console.log(account)
+          //   console.log(msgList);
+          //   msgList.deployed().then((instance) => {
+          //     msgListInstance = instance;
+          //     console.log(instance);
+          //     console.log("before create message");
+          //     msgListInstance.createMessage(message);
+          //     console.log("after create message");
+          //   })
+          // })
+          Blockchain.createMessage(message);
           socket.emit('sendMessage', message, () => setMessage(''));
           //console.log(messages);
           
