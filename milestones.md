@@ -19,12 +19,16 @@
 ## Tianyang Zhan
 ### What I did last week
 
+1. Researched about Blockchain
+2. Developed client side send message backend functionality
+3. Connect messaging functionality with client side application with blockchain backend
 
 ### Difficulties faced
-
+1. How to support multiple "rooms" in the blockchain messaging app
 
 ### What I plan to do this week
-
+1. Modify frontend UI design according to backend changes
+2. Integrade frontend and backend functionalities (user login/log out, add/remove chat rooms)
 
 ## Brandon Jones Gunaman
 ### What I did last week
