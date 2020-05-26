@@ -14,7 +14,7 @@
 1. Implement Encryption of text (message) before writing into blockchain
 
 ### Links
-1. 
+1. https://github.com/ECS153/final-project-bar/pull/11
 
 ## Tianyang Zhan
 ### What I did last week
