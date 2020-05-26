@@ -16,7 +16,7 @@ const App = () => {
             setFirebaseInitialized(val);
         })
         //Bar_app.load();
-    });
+    },[]);
     return firebaseInitialized !== false ? (
         <Router>
             <Route exact path="/" component={Login} /> 

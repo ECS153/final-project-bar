@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Identicon from 'identicon.js';
 import './Chat.css';
+import io from 'socket.io-client';
+import { Link, withRouter } from 'react-router-dom';
 //import './App.css';
 import TextContainer from '../TextContainer/TextContainer';
 import Messages from '../Messages/Messages';
@@ -12,19 +14,9 @@ import Web3 from 'web3';
 import Navbar from '../Navbar';
 import firebase from '../config/firebase';
 import Main from '../Main';
-import {useBeforeFirstRender} from '../componentWillUnmount/componentWillUnmount';
 
 let socket;
-
-
 class Chat extends React.Component {
-  // const [name, setName] = useState('');
-  //   const [room, setRoom] = useState('');
-  //   const [newuser, setNewUser] = useState('');
-  //   const [users, setUsers] = useState([]);
-  //   const [message, setMessage] = useState('');
-  //   const [messages, setMessages] = useState([]);
-  //   const ENDPOINT = 'localhost:5000';
   constructor(props) {
     super(props)
     this.state = {
@@ -35,12 +27,12 @@ class Chat extends React.Component {
       loading: true,
       name: '',
       newuser: '',
-      room: '',
+      room: '100',
       users:[],
+      messagesBC:[],
       message:'',
       messages:[],
-      socket: '',
-      ENDPOINT: 5000
+      socket: ''
     }
     if(!firebase.getCurrentUsername()) {
       alert('Please Login First');
@@ -51,6 +43,7 @@ class Chat extends React.Component {
       alert('Please verify your email first');
       props.history.replace('/');
     }
+    socket  = io('localhost:5000');
     this.createMessage = this.createMessage.bind(this);
     this.sendMessage = this.sendMessage.bind(this)
     this.loadBlockchainData = this.loadBlockchainData.bind(this)
@@ -61,48 +54,16 @@ class Chat extends React.Component {
     this.removeUser = this.removeUser.bind(this);
   }
 
-  async componentWillMount() {
-    await this.loadWeb3()
-    await this.loadBlockchainData()
+  async componentWillMount() { 
+    
+    
   }
 
-  componentDidMount() {
-    this.setState({name: firebase.getCurrentUsername()});
-    const name = firebase.getCurrentUsername();
-    this.setState({name});
-    console.log(this.state.name);
-    this.state.socket = io(this.state.ENDPOINT);
-
-    // setName(name);
-    // setRoom(/*room*/ '100');
-    this.setState({room: '100'});
-    //setUsers([{"name":"users1"},{"name":"user2"}]); //DEBUG
-  
-    const room = this.state.room;
-    this.state.socket.emit('join', {name, room}, (error) => {
-        if(error) {
-          alert(error);
-        }
-    });
-  }
-
-  componentDidUpdate() {
-    console.log("here")
-    this.state.socket.on('message', message => {
-      
-      //console.log("incoming message")
-      //console.log(message);
-      this.setState( {messages: [ ...this.state.messages, message ]});
-      console.log(this.state.messages);
-      this.createMessage(message);
-
-      //Blockchain.renderMsgs();
-    });
-  }
 
   componentWillUnmount(){
-    this.state.socket.emit('disconnect');
-    this.state.socket.off();
+    this._isMount = false
+    // /*this.state.*/this.socket.emit('disconnect');
+    /*this.state.*/socket.off();
   }
 
 
@@ -123,8 +84,34 @@ class Chat extends React.Component {
       //setUsers(users => users.filter(item => item.name !== usr));
     }
   }
-  componentDidMount() {
-    this.setState({name: firebase.getCurrentUsername()});
+  async componentDidMount() {
+    await this.loadWeb3()
+    await this.loadBlockchainData()
+    const name = firebase.getCurrentUsername();
+    console.log(this.state.name);
+    // setName(name);
+    // setRoom(/*room*/ '100');
+    this.setState({name});
+    this.setState({room: '100'});
+    //setUsers([{"name":"users1"},{"name":"user2"}]); //DEBUG
+    console.log("socket");
+    console.log(socket);
+    const room = this.state.room;
+    socket.emit('join', {name, room}, (error) => {
+        if(error) {
+          alert(error);
+        }
+    });
+    socket.on('message', message => {
+      
+      //console.log("incoming message")
+      //console.log(message);
+      this.setState( {messages: [ ...this.state.messages, message ]});
+      console.log(this.state.messages);
+      this.createMessage(message.text);
+
+    //Blockchain.renderMsgs();
+    });
   }
 
   setMessage(message) {
@@ -173,11 +160,11 @@ class Chat extends React.Component {
       for (var i = 1; i <= msgCount; i++) {
         const message = await bar.methods.messages(i).call()
         this.setState({
-          messages: [...this.state.messages, message] // Create a new array and appends new message
+          messagesBC: [...this.state.messagesBC, message] // Create a new array and appends new message
         })
       }
       this.setState({ loading: false})
-      console.log({ messages: this.state.messages })
+      console.log({ messagesBC: this.state.messagesBC })
     } else {
       window.alert('Bar contract not deployed to the detected network.')
     }
@@ -189,25 +176,50 @@ class Chat extends React.Component {
       .once("receipt",(receipt) => {
         console.log("loading");
         this.setState({ loading: false })
-        window.location.reload(true);
+        //window.location.reload(true);
       })
-
+  }
+  sendMessage(event) {
+    event.preventDefault();
+    if(this.state.message) {
+      /*this.state.*/socket.emit('sendMessage', this.state.message, () => this.setMessage(''));
+      //console.log(messages);
+    }
   }
 
   render() {
+    let isEntered = true;
+    // if(room === ''){
+    //   isEntered = false;
+    // }
     return (
-      <div>
-        <Navbar account={this.state.account} />
-        { this.state.loading 
-          ? <div id="loader" className="text-center mt-5"><p>Loading...</p></div>
-          : <Main 
-              messages={this.state.messages}
-              createMessage={this.createMessage} 
-            />
-        }
-      </div>
-    );
+      isEntered ? 
+      (
+          <div className="outerContainer">
+          <div className="container">
+              <InfoBar  user2={this.state.room} setRoom={this.setRoom}/>
+              <Messages messages={this.state.messages} name={this.state.name}/>
+              <Input  message={this.state.message} setMessage={this.setMessage} sendMessage={this.sendMessage}/>
+          </div>
+            <TextContainer name={this.state.name} isEntered={isEntered} users={this.state.users} setRoom = {this.setRoom} 
+              newuser={this.state.newuser} setNewUser={this.setNewUser} props={this.props}
+              updateUsers={this.updateUsers} removeUser={this.removeUser}/>
+          </div>
+      ) 
+      :
+      (
+        <div className="outerContainer">
+            <TextContainer name={this.state.name} isEntered={isEntered} users={this.state.users} setRoom = {this.setRoom} 
+              newuser={this.state.newuser} setNewUser={this.setNewUser} props={this.props}
+              updateUsers={this.updateUsers} removeUser={this.removeUser}/>
+        </div>
+      )
+  );
   }
 }
 
-export default Chat;
+export default withRouter(Chat);
+
+
+
+

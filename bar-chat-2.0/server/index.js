@@ -29,9 +29,9 @@ io.on('connection', (socket) => {
     });
     socket.on('sendMessage', (message, callback) => {
         const user = getUser(socket.id);
-        console.log("USER INCOMING");
-        console.log(user);
-        console.log(room);
+        //console.log("USER INCOMING");
+        //console.log(user);
+        //console.log(room);
         io.to(room).emit('message', {user: user.name, text: message});
         callback();
     });
