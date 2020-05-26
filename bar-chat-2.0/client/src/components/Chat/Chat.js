@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import queryString from 'query-string';
-import io from 'socket.io-client';
-import { Link, withRouter } from 'react-router-dom';
+import React, { Component } from 'react';
 import Identicon from 'identicon.js';
+<<<<<<< HEAD
 import './Chat.css';
 import TextContainer from '../TextContainer/TextContainer';
 import Messages from '../Messages/Messages';
 import InfoBar from '../InfoBar/InfoBar';
 import Input from '../Input/Input';
+=======
+//import './App.css';
+>>>>>>> parent of 6769d21... class version
 import Bar from '../../abis/Bar.json';
 import Web3 from 'web3';
 import Navbar from '../Navbar';
 import firebase from '../config/firebase';
 import Main from '../Main';
+<<<<<<< HEAD
 import {useBeforeFirstRender} from '../componentWillUnmount/componentWillUnmount';
 
 let socket;
@@ -31,6 +33,33 @@ const Chat = (props) => {
   if(!firebase.getCurrentUsername()) {
     alert('Please Login First');
     props.history.replace('/');
+=======
+
+class Chat extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      account: '',
+      bar: null,
+      msgCount: 0,
+      messages: [],
+      loading: true,
+      name: ''
+    }
+    if(!firebase.getCurrentUsername()) {
+      alert('Please Login First');
+      props.history.replace('/');
+    }
+
+    if(!firebase.getVerified()) {
+      alert('Please verify your email first');
+      props.history.replace('/');
+    }
+    this.createMessage = this.createMessage.bind(this)
+    this.loadBlockchainData = this.loadBlockchainData.bind(this)
+    this.setState = this.setState.bind(this)
+>>>>>>> parent of 6769d21... class version
   }
 
   if(!firebase.getVerified()) {
@@ -38,6 +67,7 @@ const Chat = (props) => {
     props.history.replace('/');
   }
 
+<<<<<<< HEAD
   useBeforeFirstRender(async () => {
     await loadWeb3()
     await loadBlockchainData()
@@ -98,6 +128,12 @@ const Chat = (props) => {
       setUsers(users => users.filter(item => item.name !== usr));
     }
   }
+=======
+  componentDidMount() {
+    this.setState({name: firebase.getCurrentUsername()});
+  }
+
+>>>>>>> parent of 6769d21... class version
 
 
   const loadWeb3 = async () => {
@@ -153,6 +189,7 @@ const Chat = (props) => {
         setLoading(false)
         window.location.reload(true);
       })
+<<<<<<< HEAD
   }
   const sendMessage = (event) => {
     event.preventDefault();
@@ -198,3 +235,25 @@ export default withRouter(Chat);
 
 
 
+=======
+
+  }
+
+  render() {
+    return (
+      <div>
+        <Navbar account={this.state.account} />
+        { this.state.loading 
+          ? <div id="loader" className="text-center mt-5"><p>Loading...</p></div>
+          : <Main 
+              messages={this.state.messages}
+              createMessage={this.createMessage} 
+            />
+        }
+      </div>
+    );
+  }
+}
+
+export default Chat;
+>>>>>>> parent of 6769d21... class version
