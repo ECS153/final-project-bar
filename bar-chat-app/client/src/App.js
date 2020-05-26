@@ -6,6 +6,7 @@ import Chat from './components/Chat/Chat';
 import firebase from './config/firebase';
 
 
+
 const App = () => {
     const [firebaseInitialized, setFirebaseInitialized] = useState(false);
 
@@ -13,6 +14,7 @@ const App = () => {
         firebase.isInitialized().then( val => {
             setFirebaseInitialized(val);
         })
+        //Bar_app.load();
     });
     return firebaseInitialized !== false ? (
         <Router>

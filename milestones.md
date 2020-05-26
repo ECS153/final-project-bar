@@ -1,3 +1,50 @@
+# Milestone 3
+
+## Sheng Yee Siow
+### What I did last week
+1. Researched about Ethereum
+2. Wrote smart contracts to model messages
+3. Developed client side backend functionality (send messages)
+4. Established connection between client side application with blockchain
+
+### Difficulties faced
+1. Still figuring out how to have multiple machines (users) connect to our blockchain (enabling connection to local host or hosting on VM)
+
+### What I plan to do this week
+1. Implement Encryption of text (message) before writing into blockchain
+
+### Links
+1. 
+
+## Tianyang Zhan
+### What I did last week
+
+
+### Difficulties faced
+
+
+### What I plan to do this week
+
+
+## Brandon Jones Gunaman
+### What I did last week
+
+### Difficulties faced
+
+
+## What I plan to do this week  
+
+
+## Vsevolod Moskaev
+### What I did last week
+
+
+### Difficulties faced
+
+
+### What I plan to do this week
+
+
 # Milestone 2
 Video: https://youtu.be/77c0YAEJjYU
 
