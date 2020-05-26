@@ -1,7 +1,6 @@
-
 import app from 'firebase/app';
 import 'firebase/auth';
-import 'firebase/firebase-firestore';
+import '../../../../bar-chat-2.0/client/node_modules/firebase/firebase-firestore';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCkMURgNJA5szryot-Rp_NobFPZdPbJTzE",
@@ -63,4 +62,4 @@ class Firebase {
 
 }
 
-  export default new Firebase();
+export default new Firebase();
