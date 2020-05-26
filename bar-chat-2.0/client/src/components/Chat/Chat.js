@@ -1,42 +1,30 @@
 import React, { Component } from 'react';
 import Identicon from 'identicon.js';
-<<<<<<< HEAD
 import './Chat.css';
+//import './App.css';
 import TextContainer from '../TextContainer/TextContainer';
 import Messages from '../Messages/Messages';
 import InfoBar from '../InfoBar/InfoBar';
 import Input from '../Input/Input';
-=======
 //import './App.css';
->>>>>>> parent of 6769d21... class version
 import Bar from '../../abis/Bar.json';
 import Web3 from 'web3';
 import Navbar from '../Navbar';
 import firebase from '../config/firebase';
 import Main from '../Main';
-<<<<<<< HEAD
 import {useBeforeFirstRender} from '../componentWillUnmount/componentWillUnmount';
 
 let socket;
-const Chat = (props) => {
-  const [name, setName] = useState('');
-  const [room, setRoom] = useState('');
-  const [newuser, setNewUser] = useState('');
-  const [users, setUsers] = useState([]);
-  const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([]);
-  const [account, setAccount] = useState('');
-  const [bar, setBar] = useState(null);
-  const [msgCount, setMsgCount] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const ENDPOINT = 'localhost:5000';
-  if(!firebase.getCurrentUsername()) {
-    alert('Please Login First');
-    props.history.replace('/');
-=======
 
-class Chat extends Component {
 
+class Chat extends React.Component {
+  // const [name, setName] = useState('');
+  //   const [room, setRoom] = useState('');
+  //   const [newuser, setNewUser] = useState('');
+  //   const [users, setUsers] = useState([]);
+  //   const [message, setMessage] = useState('');
+  //   const [messages, setMessages] = useState([]);
+  //   const ENDPOINT = 'localhost:5000';
   constructor(props) {
     super(props)
     this.state = {
@@ -45,7 +33,14 @@ class Chat extends Component {
       msgCount: 0,
       messages: [],
       loading: true,
-      name: ''
+      name: '',
+      newuser: '',
+      room: '',
+      users:[],
+      message:'',
+      messages:[],
+      socket: '',
+      ENDPOINT: 5000
     }
     if(!firebase.getCurrentUsername()) {
       alert('Please Login First');
@@ -56,87 +51,93 @@ class Chat extends Component {
       alert('Please verify your email first');
       props.history.replace('/');
     }
-    this.createMessage = this.createMessage.bind(this)
+    this.createMessage = this.createMessage.bind(this);
+    this.sendMessage = this.sendMessage.bind(this)
     this.loadBlockchainData = this.loadBlockchainData.bind(this)
-    this.setState = this.setState.bind(this)
->>>>>>> parent of 6769d21... class version
+    this.setMessage = this.setMessage.bind(this);
+    this.setNewUser = this.setNewUser.bind(this);
+    this.setRoom = this.setRoom.bind(this);
+    this.updateUsers = this.updateUsers.bind(this);
+    this.removeUser = this.removeUser.bind(this);
   }
 
-  if(!firebase.getVerified()) {
-    alert('Please verify your email first');
-    props.history.replace('/');
+  async componentWillMount() {
+    await this.loadWeb3()
+    await this.loadBlockchainData()
   }
 
-<<<<<<< HEAD
-  useBeforeFirstRender(async () => {
-    await loadWeb3()
-    await loadBlockchainData()
-  })
-
-
-
-
-  useEffect( () => {
+  componentDidMount() {
+    this.setState({name: firebase.getCurrentUsername()});
     const name = firebase.getCurrentUsername();
-    console.log(name);
-    socket = io(ENDPOINT);
+    this.setState({name});
+    console.log(this.state.name);
+    this.state.socket = io(this.state.ENDPOINT);
 
-    setName(name);
-    setRoom(/*room*/ '100');
+    // setName(name);
+    // setRoom(/*room*/ '100');
+    this.setState({room: '100'});
     //setUsers([{"name":"users1"},{"name":"user2"}]); //DEBUG
   
-  
-    socket.emit('join', {name, room}, (error) => {
+    const room = this.state.room;
+    this.state.socket.emit('join', {name, room}, (error) => {
         if(error) {
           alert(error);
         }
     });
-  }, [ENDPOINT, /*location.search*/]);
+  }
 
-  useEffect(() =>  {
-    
+  componentDidUpdate() {
     console.log("here")
-    socket.on('message', message => {
+    this.state.socket.on('message', message => {
       
       //console.log("incoming message")
       //console.log(message);
-      //setMessages(messages => [ ...messages, message ]);
-      console.log(messages);
-      createMessage(message);
+      this.setState( {messages: [ ...this.state.messages, message ]});
+      console.log(this.state.messages);
+      this.createMessage(message);
 
       //Blockchain.renderMsgs();
     });
-    //componentWillMount();
-    return () => {
-      socket.emit('disconnect');
-      socket.off();
-    }
-  }, []);
+  }
 
-  const updateUsers = (event) => {
+  componentWillUnmount(){
+    this.state.socket.emit('disconnect');
+    this.state.socket.off();
+  }
+
+
+  updateUsers(event){
     event.preventDefault();
     
-    if(newuser) {
-      setUsers(users => [ ...users, {"name":newuser} ]);
-    }
-}
-
-  const removeUser = (usr) => {
-        
-    if(usr) {
-      //setRoom('');
-      setUsers(users => users.filter(item => item.name !== usr));
+    if(this.newuser) {
+      this.setState({users: [...this.state.users, {"name": this.newuser}]});
+      //setUsers(users => [ ...users, {"name":newuser} ]);
     }
   }
-=======
+
+  removeUser(usr){
+      
+    if(usr) {
+      //setRoom('');
+      this.setState({users: this.state.users.filter(item => item.name !== usr)});
+      //setUsers(users => users.filter(item => item.name !== usr));
+    }
+  }
   componentDidMount() {
     this.setState({name: firebase.getCurrentUsername()});
   }
 
->>>>>>> parent of 6769d21... class version
+  setMessage(message) {
+    this.setState({message});
+  }
+  setNewUser(user) {
+    this.setState({newuser: user});
+  }
+  setRoom(room) {
+    this.setState({room});
+  }
 
-
-  const loadWeb3 = async () => {
+  async loadWeb3() {
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum)
       await window.ethereum.enable()
@@ -149,13 +150,12 @@ class Chat extends Component {
     }
   }
 
-  const loadBlockchainData = async () => {
+  async loadBlockchainData() {
     
     const web3 = window.web3;
     // load account
     const accounts = await web3.eth.getAccounts();
-    const account = accounts[0];
-    setAccount(account);
+    this.setState({ account: accounts[0]});
 
     // load contract
     const networkID = await web3.eth.net.getId();
@@ -165,77 +165,32 @@ class Chat extends Component {
     
     if(networkData) {
       const bar = new web3.eth.Contract(Bar.abi, networkData.address)
-      setBar(bar);
+      this.setState({ bar })
       const msgCount = await bar.methods.messageCount().call() // doesn't cost gas; .send() costs gas
-      setMsgCount(msgCount)
+      this.setState({ msgCount })
       
       // Load messages
       for (var i = 1; i <= msgCount; i++) {
         const message = await bar.methods.messages(i).call()
-        setMessages([...messages, message]) // Create a new array and appends new message 
+        this.setState({
+          messages: [...this.state.messages, message] // Create a new array and appends new message
+        })
       }
-      setLoading(false)
-      console.log({ messages})
+      this.setState({ loading: false})
+      console.log({ messages: this.state.messages })
     } else {
       window.alert('Bar contract not deployed to the detected network.')
     }
   }
   
-  const createMessage = (content) => {
-    setLoading(true);
-    bar.methods.createMessage(content).send({ from: account })
+  createMessage(content) {
+    this.setState({ loading: true })
+    this.state.bar.methods.createMessage(content).send({ from: this.state.account })
       .once("receipt",(receipt) => {
         console.log("loading");
-        setLoading(false)
+        this.setState({ loading: false })
         window.location.reload(true);
       })
-<<<<<<< HEAD
-  }
-  const sendMessage = (event) => {
-    event.preventDefault();
-    if(message) {
-      socket.emit('sendMessage', message, () => setMessage(''));
-      //console.log(messages);
-    }
-  }
-
- 
-  let isEntered = true;
-  // if(room === ''){
-  //   isEntered = false;
-  // }
-  return (
-    isEntered ? 
-    (
-        <div className="outerContainer">
-        <div className="container">
-            <InfoBar  user2={room} setRoom={setRoom}/>
-            <Messages messages={messages} name={name}/>
-            <Input  message={message} setMessage={setMessage} sendMessage={sendMessage}/>
-        </div>
-          <TextContainer name={name} isEntered={isEntered} users={users} setRoom = {setRoom} 
-            newuser={newuser} setNewUser={setNewUser} props={props}
-            updateUsers={updateUsers} removeUser={removeUser}/>
-        </div>
-    ) 
-    :
-    (
-      <div className="outerContainer">
-          <TextContainer name={name} isEntered={isEntered} users={users} setRoom = {setRoom} 
-            newuser={newuser} setNewUser={setNewUser} props={props}
-            updateUsers={updateUsers} removeUser={removeUser}/>
-      </div>
-    )
-);
-}
-
-
-export default withRouter(Chat);
-
-
-
-
-=======
 
   }
 
@@ -256,4 +211,3 @@ export default withRouter(Chat);
 }
 
 export default Chat;
->>>>>>> parent of 6769d21... class version
