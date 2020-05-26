@@ -61,7 +61,6 @@ class Chat extends React.Component {
 
 
   componentWillUnmount(){
-    this._isMount = false
     // /*this.state.*/this.socket.emit('disconnect');
     /*this.state.*/socket.off();
   }
