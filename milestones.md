@@ -21,31 +21,39 @@ Video: https://youtu.be/WJOc06mqTsk
 ## Tianyang Zhan
 ### What I did last week
 
+1. Researched about Blockchain
+2. Developed client side send message backend functionality
+3. Connect messaging functionality with client side application with blockchain backend
 
 ### Difficulties faced
-
+1. How to support multiple "rooms" in the blockchain messaging app
 
 ### What I plan to do this week
-
+1. Modify frontend UI design according to backend changes
+2. Integrate frontend and backend functionalities (user login/log out, add/remove chat rooms)
 
 ## Brandon Jones Gunaman
 ### What I did last week
+1. Researched on ethereum and smart contracts, with truffle, ganache and metamask    
+2. Finished Server side of the chat application to allow communication with sockets  
+3. Integrated Chat application with blockchain, so messages are sent to block chain everytime messages come in  
 
 ### Difficulties faced
-
+1. Hosting web app on server to allow multiple users to chat together from different computers  
 
 ## What I plan to do this week  
+1. Research on encrypting messages  
 
 
 ## Vsevolod Moskaev
 ### What I did last week
-
+1. Encrypt/Decrypt messages stored on blockchain
 
 ### Difficulties faced
-
+1. Javascript
 
 ### What I plan to do this week
-
+1. Manage chat room private key
 
 # Milestone 2
 Video: https://youtu.be/77c0YAEJjYU
