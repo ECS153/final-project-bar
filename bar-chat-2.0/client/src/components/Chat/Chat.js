@@ -127,6 +127,7 @@ class Chat extends React.Component {
   }
 
   async loadBlockchainData() {
+    const CryptoJS = require("crypto-js")
     
     const web3 = window.web3;
 
@@ -153,8 +154,12 @@ class Chat extends React.Component {
       // Load messages
       for (var i = 1; i <= msgCount; i++) {
         const message = await bar.methods.messages(i).call()
+        // Decrypt message
+        bytes = CryptoJS.AES.decrypt(ciphertext, 'placeholder key')
+        decryptedString = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+
         this.setState({
-          messagesBC: [...this.state.messagesBC, message] // Create a new array and appends new message
+          messagesBC: [...this.state.messagesBC, decryptedString] // Create a new array and appends new message
         })
       }
       this.setState({ loading: false})
@@ -165,8 +170,12 @@ class Chat extends React.Component {
   }
   
   createMessage(content) {
+    const CryptoJS = require("crypto-js")
+    // encrypt content to be sent
+    encryptedString = CryptoJS.AES.encrypt(JSON.stringify(content), 'placeholder key').toString()
+
     this.setState({ loading: true })
-    this.state.bar.methods.createMessage(content).send({ from: this.state.account })
+    this.state.bar.methods.createMessage(encryptedString).send({ from: this.state.account })
       .once("receipt",(receipt) => {
         console.log("loading");
         this.setState({ loading: false })
