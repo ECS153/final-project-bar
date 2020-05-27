@@ -1,4 +1,6 @@
 # Milestone 3
+Video: https://youtu.be/WJOc06mqTsk
+
 
 ## Sheng Yee Siow
 ### What I did last week
