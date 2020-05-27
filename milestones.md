@@ -41,13 +41,13 @@
 
 ## Vsevolod Moskaev
 ### What I did last week
-
+1. Encrypt/Decrypt messages stored on blockchain
 
 ### Difficulties faced
-
+1. Javascript
 
 ### What I plan to do this week
-
+1. Manage chat room private key
 
 # Milestone 2
 Video: https://youtu.be/77c0YAEJjYU
