@@ -28,15 +28,19 @@
 
 ### What I plan to do this week
 1. Modify frontend UI design according to backend changes
-2. Integrade frontend and backend functionalities (user login/log out, add/remove chat rooms)
+2. Integrate frontend and backend functionalities (user login/log out, add/remove chat rooms)
 
 ## Brandon Jones Gunaman
 ### What I did last week
+1. Researched on ethereum and smart contracts, with truffle, ganache and metamask    
+2. Finished Server side of the chat application to allow communication with sockets  
+3. Integrated Chat application with blockchain, so messages are sent to block chain everytime messages come in  
 
 ### Difficulties faced
-
+1. Hosting web app on server to allow multiple users to chat together from different computers  
 
 ## What I plan to do this week  
+1. Research on encrypting messages  
 
 
 ## Vsevolod Moskaev
