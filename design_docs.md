@@ -6,3 +6,7 @@ Link: https://docs.google.com/document/d/1c9KJshb-DhSTKJ7EC2uMM_-jOJPJdeBngF70rg
 ### Design Documnet of login  
 A brief description of the login process: creating accounts, verifying email, and logging in using firebase authorization.  
 Link: https://docs.google.com/document/d/1TWKDt3Vb_sUXHM7pJTeYB0nCPG-VG-6cSB8Bh11__i4/edit?usp=sharing
+
+### Design Documnet of the App  
+A brief overview of the application: introduction and general pipeline.  
+Link: https://docs.google.com/document/d/13EUtoH5EnisTmMndfkK_NlmF49tWfazeOxdRwuxGc7w/edit?usp=sharing
