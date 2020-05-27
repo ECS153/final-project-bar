@@ -108,8 +108,6 @@ class Chat extends React.Component {
       //console.log(message);
       this.setState( {messages: [ ...this.state.messages, message ]});
       console.log(this.state.messages);
-      this.createMessage(message.text);
-
     //Blockchain.renderMsgs();
     });
   }
@@ -182,6 +180,7 @@ class Chat extends React.Component {
   sendMessage(event) {
     event.preventDefault();
     if(this.state.message) {
+      this.createMessage(this.state.message);
       /*this.state.*/socket.emit('sendMessage', this.state.message, () => this.setMessage(''));
       //console.log(messages);
     }
