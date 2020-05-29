@@ -10,3 +10,7 @@ Link: https://docs.google.com/document/d/1TWKDt3Vb_sUXHM7pJTeYB0nCPG-VG-6cSB8Bh1
 ### Design Document of the App  
 A brief overview of the application: introduction and general pipeline.  
 Link: https://docs.google.com/document/d/13EUtoH5EnisTmMndfkK_NlmF49tWfazeOxdRwuxGc7w/edit?usp=sharing
+
+### Deisn Document of Message Encryption
+Quick description of how messages are protected while stored on the blockchain/
+Link: https://docs.google.com/document/d/1UdXyi7t95LEX5IvfxwxQWa8mYxoneJ5Hoj1u0AVAxh4/edit?usp=sharing
