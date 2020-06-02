@@ -84,8 +84,9 @@ class Chat extends React.Component {
       //setUsers(users => users.filter(item => item.name !== usr));
     }
   }
+
   async componentDidMount() {
-    await this.loadWeb3()
+    await this.loadWeb3(this.props)
     await this.loadBlockchainData()
     const name = firebase.getCurrentUsername();
     console.log(this.state.name);
@@ -122,7 +123,7 @@ class Chat extends React.Component {
     this.setState({room});
   }
 
-  async loadWeb3() {
+  async loadWeb3(props) {
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum)
       await window.ethereum.enable()
@@ -132,12 +133,19 @@ class Chat extends React.Component {
     }
     else {
       window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
+      await firebase.logout();
+      props.history.replace('/');
     }
   }
 
   async loadBlockchainData() {
     
     const web3 = window.web3;
+
+    if (!window.web3) {
+      return;
+    }
+
     // load account
     const accounts = await web3.eth.getAccounts();
     this.setState({ account: accounts[0]});
