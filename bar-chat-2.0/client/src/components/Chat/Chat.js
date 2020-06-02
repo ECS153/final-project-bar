@@ -34,16 +34,9 @@ class Chat extends React.Component {
       messages:[],
       socket: ''
     }
-    if(!firebase.getCurrentUsername()) {
-      alert('Please Login First');
-      props.history.replace('/');
-    }
-
-    if(!firebase.getVerified()) {
-      alert('Please verify your email first');
-      props.history.replace('/');
-    }
+    
     socket  = io('localhost:5000');
+    
     this.createMessage = this.createMessage.bind(this);
     this.sendMessage = this.sendMessage.bind(this)
     this.loadBlockchainData = this.loadBlockchainData.bind(this)
@@ -52,6 +45,7 @@ class Chat extends React.Component {
     this.setRoom = this.setRoom.bind(this);
     this.updateUsers = this.updateUsers.bind(this);
     this.removeUser = this.removeUser.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   async componentWillMount() { 
@@ -62,8 +56,7 @@ class Chat extends React.Component {
 
   componentWillUnmount(){
     this._isMount = false
-    // /*this.state.*/this.socket.emit('disconnect');
-    /*this.state.*/socket.off();
+    socket.off();
   }
 
 
@@ -86,6 +79,18 @@ class Chat extends React.Component {
   }
 
   async componentDidMount() {
+    console.log("COMPONENT DID MOUNT");
+    if(!firebase.getCurrentUsername()) {
+      alert('Please Login First');
+      this.props.history.replace('/');
+      return
+    }
+
+    if(!firebase.getVerified()) {
+      alert('Please verify your email first');
+      this.props.history.replace('/');
+      return
+    }
     await this.loadWeb3(this.props)
     await this.loadBlockchainData()
     const name = firebase.getCurrentUsername();
