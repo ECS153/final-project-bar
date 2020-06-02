@@ -34,16 +34,9 @@ class Chat extends React.Component {
       messages:[],
       socket: ''
     }
-    if(!firebase.getCurrentUsername()) {
-      alert('Please Login First');
-      props.history.replace('/');
-    }
-
-    if(!firebase.getVerified()) {
-      alert('Please verify your email first');
-      props.history.replace('/');
-    }
+    
     socket  = io('localhost:5000');
+    
     this.createMessage = this.createMessage.bind(this);
     this.sendMessage = this.sendMessage.bind(this)
     this.loadBlockchainData = this.loadBlockchainData.bind(this)
@@ -52,18 +45,12 @@ class Chat extends React.Component {
     this.setRoom = this.setRoom.bind(this);
     this.updateUsers = this.updateUsers.bind(this);
     this.removeUser = this.removeUser.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
-
-  async componentWillMount() { 
-    
-    
-  }
-
 
   componentWillUnmount(){
     this._isMount = false
-    // /*this.state.*/this.socket.emit('disconnect');
-    /*this.state.*/socket.off();
+    socket.off();
   }
 
 
@@ -86,17 +73,22 @@ class Chat extends React.Component {
   }
 
   async componentDidMount() {
+    if(!firebase.getCurrentUsername()) {
+      alert('Please Login First');
+      this.props.history.replace('/');
+      return
+    }
+
+    if(!firebase.getVerified()) {
+      alert('Please verify your email first');
+      this.props.history.replace('/');
+      return
+    }
     await this.loadWeb3(this.props)
     await this.loadBlockchainData()
     const name = firebase.getCurrentUsername();
-    console.log(this.state.name);
-    // setName(name);
-    // setRoom(/*room*/ '100');
     this.setState({name});
     this.setState({room: '100'});
-    //setUsers([{"name":"users1"},{"name":"user2"}]); //DEBUG
-    console.log("socket");
-    console.log(socket);
     const room = this.state.room;
     socket.emit('join', {name, room}, (error) => {
         if(error) {
@@ -104,12 +96,8 @@ class Chat extends React.Component {
         }
     });
     socket.on('message', message => {
-      
-      //console.log("incoming message")
-      //console.log(message);
       this.setState( {messages: [ ...this.state.messages, message ]});
       console.log(this.state.messages);
-    //Blockchain.renderMsgs();
     });
   }
 
@@ -189,8 +177,7 @@ class Chat extends React.Component {
     event.preventDefault();
     if(this.state.message) {
       this.createMessage(this.state.message);
-      /*this.state.*/socket.emit('sendMessage', this.state.message, () => this.setMessage(''));
-      //console.log(messages);
+      socket.emit('sendMessage', this.state.message, () => this.setMessage(''));
     }
   }
 

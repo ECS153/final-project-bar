@@ -42,6 +42,7 @@ function Register(props) {
 
     async function verify() {
         try {
+            alert('Please go to inserted email and verify it');
             await firebase.verifyEmail();
             props.history.replace('/');
         } catch(error) {
