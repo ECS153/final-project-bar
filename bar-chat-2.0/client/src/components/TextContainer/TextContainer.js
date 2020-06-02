@@ -23,7 +23,7 @@ const TextContainer = ({ name, isEntered, users, setRoom, newuser, setNewUser, u
                 onKeyPress={event => event.key === 'Enter' ? updateUsers(event) : null}/>
               <button className="addButton" onClick={e => updateUsers(e)}>Add</button>
 
-              <h2 id="userList">Select One Added Users To Start:</h2>
+              <h2 id="userList">Select One Users To Start:</h2>
               <div className="activeContainer">
                 <h2>
                   {users.map( ({name}) => (
@@ -66,7 +66,7 @@ const TextContainer = ({ name, isEntered, users, setRoom, newuser, setNewUser, u
 
   async function logout() {
     await firebase.logout();
-    props.history.push('/');
+    props.history.replace('/');
   }
 
 }

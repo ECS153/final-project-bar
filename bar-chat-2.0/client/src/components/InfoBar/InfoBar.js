@@ -3,7 +3,6 @@ import closeIcon from '../../icons/closeIcon.png'
 import onlineIcon from '../../icons/onlineIcon.png'
 
 import './InfoBar.css';
-import { checkPropTypes } from 'prop-types';
 
 const InfoBar = ({user2, props, setRoom}) => {
   return (
