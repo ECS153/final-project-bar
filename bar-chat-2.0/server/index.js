@@ -15,23 +15,12 @@ io.on('connection', (socket) => {
     console.log('We have a new connection!!!');
     socket.on('join', ({name, room}, callback) => {
         const user = addUser({id: socket.id, name});
-        console.log(user);
-        // if(error) {
-        //     return callback(error);
-        // }
-        console.log(room);
         room = '100';
-        console.log('fun');
-        //socket.emit('message', {user: 'admin', text: `${user.name}, welcome to this chat room!`});
-        //socket.broadcast.to().emit('message', { user: 'admin', text: `${user.name}, has joined`});
         socket.join(room);
         callback();
     });
     socket.on('sendMessage', (message, callback) => {
         const user = getUser(socket.id);
-        //console.log("USER INCOMING");
-        //console.log(user);
-        //console.log(room);
         io.to(room).emit('message', {user: user.name, text: message});
         callback();
     });

@@ -48,12 +48,6 @@ class Chat extends React.Component {
     this.componentDidMount = this.componentDidMount.bind(this);
   }
 
-  async componentWillMount() { 
-    
-    
-  }
-
-
   componentWillUnmount(){
     this._isMount = false
     socket.off();
@@ -79,7 +73,6 @@ class Chat extends React.Component {
   }
 
   async componentDidMount() {
-    console.log("COMPONENT DID MOUNT");
     if(!firebase.getCurrentUsername()) {
       alert('Please Login First');
       this.props.history.replace('/');
@@ -94,14 +87,8 @@ class Chat extends React.Component {
     await this.loadWeb3(this.props)
     await this.loadBlockchainData()
     const name = firebase.getCurrentUsername();
-    console.log(this.state.name);
-    // setName(name);
-    // setRoom(/*room*/ '100');
     this.setState({name});
     this.setState({room: '100'});
-    //setUsers([{"name":"users1"},{"name":"user2"}]); //DEBUG
-    console.log("socket");
-    console.log(socket);
     const room = this.state.room;
     socket.emit('join', {name, room}, (error) => {
         if(error) {
@@ -109,12 +96,8 @@ class Chat extends React.Component {
         }
     });
     socket.on('message', message => {
-      
-      //console.log("incoming message")
-      //console.log(message);
       this.setState( {messages: [ ...this.state.messages, message ]});
       console.log(this.state.messages);
-    //Blockchain.renderMsgs();
     });
   }
 
@@ -194,8 +177,7 @@ class Chat extends React.Component {
     event.preventDefault();
     if(this.state.message) {
       this.createMessage(this.state.message);
-      /*this.state.*/socket.emit('sendMessage', this.state.message, () => this.setMessage(''));
-      //console.log(messages);
+      socket.emit('sendMessage', this.state.message, () => this.setMessage(''));
     }
   }
 
