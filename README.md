@@ -1,6 +1,39 @@
 # Bar
 ##### Blockhain Web-based Instant Messaging Application
 
+## Running the Application
+### 1. Install Ethereum Wallet  
+Install Ganache (https://www.trufflesuite.com/ganache) and Metamask (https://metamask.io/)
+
+### 2. Install Dependencies  
+Navigate to `bar-chat-2.0` and run the command `npm i`.  
+
+### 3. Launch Ganache
+Launch Ganache so that the ethereum accounts are available to the Blockchain that you are about to deploy.  
+
+### 4. Migrate the Smart Contract  
+Launch the terminal and navigate to the directory <em>bar-chat-2.0 > client</em> and run the command `truffle migrate --reset` to deploy a new smart contract. The first Ganache account will be used as the deployer by default. You can verify this by check if the balance in your ganache account drops.  
+  
+### 5. Spcecify your Blockchain Network on Metamask
+For the purposes of this project, we have set our development network as 127.0.0.1:7545. This configuration is in <em>bar-chat-2.0 > client > truffle-config.js</em>  
+The top dropdown in Metamask is where you will connect to a network. Select the dropdown and choose `Custom RPC`. Input the following:  
+  
+Network Name: HTTP.//127/0/0/1:7545  
+New RPC URL: http://127.0.0.1  
+
+This step creates the network our blockchain is running on. Select this newly create network.
+
+### 6. Import Ganache Accounts into Metamask Ethereum Wallet
+In Google Chrome, click on the Metamask extension icon (A Fox). You will have to make a new account if you are using Metamask the first time. Click `Restore your account using seed phrase`. Copy the Mnemonic phrase from Ganache (Above your first account) and paste it in the Wallet Seed field in Metamask and then create your password. This should bring all your Ethereum accounts into Metamask.  
+  
+If you have to manually add your accounts, click on the Icon at the top right corner of the extension. Then click on `Import Account` and use a Private Key to do so. You can obtain the account's private key in Ganache by clicking on the key icon at the rightmost end of an account entry. The private key is what you need to paste in Metamask to add your account.  
+  
+### 7. Run the server
+Open a new terminal session and navigate to <em>bar-chat-2.0 > server</em> then run the command `npm run start`.
+
+### 8. Run the client
+With the terminal session running the server opened, launch a new terminal session and navigate to <em>bar-chat-2.0 > client</em> then run the command `npm run start`.
+
 ## Blockchain
 ### Smart Contract Definition
 <em>File: bar-chat-2.0 > client > src > contracts > Bar.sol</em>  
