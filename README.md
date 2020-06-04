@@ -85,6 +85,13 @@ This file contains the front-end code for the UI in JSX and for managing the use
 `onRegister` gets called when the user clicks the register button and this invokes the `firebase.register()` function from firebase.js. Thus registering an account with said email and password. It then calls `verifyEmail()` which handles email verification.  
 `verifyEmail()` gets called in `onRegister()` after a user account with the email is created. It then calls `firebase.verifyEmail()` function from firebase.js which hanles email verification. This function also leads the user back to the login page to login after verification.  
 
+### Chat Page  
+<em>File: bar-chat-2.0 > client > src > components > Chat > Chat.js </em>  
+This file contains the front-end code for the UI in JSX and for mananaging the message and user state components.   
+Clicking the logout button will trigger the `firebase.logout()` function from firebase.js and redirect the Login page. 
+The chat window will send and receive real-time messages to multiple users by keeping track of the `messages` state. To send message, `socket.emit('sendMessage',...)` will get called to update the `messages` state on the server. To receive message, `socket.on('message',...)` will keep listening on the socket and updating `messages` state.
+Here the user also has the ability to add, remove, and select different users. Since we are fixing the room number for the purpose of this project, this functionality will be reserved for future work.  
+
 ### Checking if the user is logged in and verified on Chat page  
 <em>File: bar-chat-2.0 > client > src > components > Chat > Chat.js > ComponentDidMount() > lines 83-87</em>  
 This part of the code checks if the user is logged in and has verified their email by calling `firebase.getVerified()` and `firebase.getCurrentUsername()`from firebase.js.  
@@ -111,7 +118,7 @@ This file users.js is used to manage users.
 
 ### Receiving Messages from the server  
 <em>File: bar-chat-2.0 > client > src > components > Chat > Chat.js > ComponentDidMount() > lines 98-101</em>  
-`socket.on('message',...)` receives messages back from the server and adds it the `messages` state.  
+`socket.on('message',...)` receives messages back from the server and adds it to the `messages` state.  
 
 ### Sending Messages from the client  
 <em>File: bar-chat-2.0 > client > src > components > Chat > Chat.js > sendMessage()</em>  
