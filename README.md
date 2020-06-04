@@ -12,9 +12,9 @@ Navigate to `bar-chat-2.0` and run the command `npm i`.
 Launch Ganache so that the ethereum accounts are available to the Blockchain that you are about to deploy.  
 
 ### 4. Migrate the Smart Contract  
-Launch the terminal and navigate to the directory <em>bar-chat-2.0 > client</em> and run the command `truffle migrate --reset` to deploy a new smart contract. The first Ganache account will be used as the deployer by default. You can verify this by check if the balance in your ganache account drops.  
+Launch the terminal and navigate to the directory <em>bar-chat-2.0 > client</em> and run the command `truffle migrate --reset` to deploy a new smart contract. The first Ganache account will be used as the deployer by default. You can verify this by check if the balance in your ganache account drops. You only have to deploy once.  
   
-### 5. Spcecify your Blockchain Network on Metamask
+### 5. Specify your Blockchain Network on Metamask
 For the purposes of this project, we have set our development network as 127.0.0.1:7545. This configuration is in <em>bar-chat-2.0 > client > truffle-config.js</em>  
 The top dropdown in Metamask is where you will connect to a network. Select the dropdown and choose `Custom RPC`. Input the following:  
   
