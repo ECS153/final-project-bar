@@ -2,30 +2,32 @@
   .textContainer {
     display: flex;
     flex-direction: column;
-    margin-left: 100px;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5%;
     color: white;
-    height: 60%;
-    justify-content: space-between;
+    height: 100%;
+    justify-content: center;
   }
   
   .account {
-    width: 70%;
-    margin-right: 5%;
+    width: 100%;
   }
 
   .logoutButton {
     text-align: center;
     display: inline-block;
-    padding: 5%;
-    width: 20%;
+    border-radius: 10px;
+    width: 15%;
     font-size: 0.5em;
-    margin-bottom: 15%;
+    margin-bottom: 20%;
+    background: #F3F3F3;
   }
 
   .inputName {
     border: none;
-    border-radius: 0;
-    padding: 5%;
+    border-radius: 10px;
+    padding: 2%;
     width: 70%;
     height: 10%;
     font-size: 1em;
@@ -36,15 +38,15 @@
   }
   
   .addButton {
+    border-radius: 10px;
     margin-left: 5%;
+    padding: 2%;
     color: #fff !important;
     text-transform: uppercase;
-    text-decoration: none;
-    background: #2979FF;
-    padding: 5%;
+    background: #4E4EF4;
     display: inline-block;
     border: none;
-    width: 15%;
+    height: 10%;
   }
 
   .activeContainer {
@@ -70,10 +72,4 @@
   #userList {
     margin-top: 20%;
     margin-bottom: 1%;
-  }
-
-  @media (min-width: 320px) and (max-width: 1200px) {
-    .textContainer {
-      display: none;
-    }
   }
