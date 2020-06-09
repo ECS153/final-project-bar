@@ -153,13 +153,15 @@ class Chat extends React.Component {
       
       // Load messages
       for (var i = 1; i <= msgCount; i++) {
-        const message = await bar.methods.messages(i).call()
+        var message = await bar.methods.messages(i).call()
+
         // Decrypt message
-        const bytes = CryptoJS.AES.decrypt(message, 'placeholder key')
+        const bytes = CryptoJS.AES.decrypt(message.content, 'placeholder key')
         const decryptedString = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+        message.content = decryptedString        
 
         this.setState({
-          messagesBC: [...this.state.messagesBC, decryptedString] // Create a new array and appends new message
+          messagesBC: [...this.state.messagesBC, message] // Create a new array and appends new message
         })
       }
       this.setState({ loading: false})
@@ -172,7 +174,7 @@ class Chat extends React.Component {
   createMessage(content) {
     const CryptoJS = require("crypto-js")
     // encrypt content to be sent
-     const encryptedString = CryptoJS.AES.encrypt(JSON.stringify(content), 'placeholder key').toString()
+    const encryptedString = CryptoJS.AES.encrypt(JSON.stringify(content), 'placeholder key').toString()
 
     this.setState({ loading: true })
     this.state.bar.methods.createMessage(encryptedString).send({ from: this.state.account })
